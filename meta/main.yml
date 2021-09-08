@@ -1,4 +1,6 @@
 galaxy_info:
+  role_name: ya_provider
+
   author: Adam Mizerski
   description: Yagna provider node with wasi and vm runtimes
   company: Golem Factory GmbH

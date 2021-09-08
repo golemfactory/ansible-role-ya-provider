@@ -81,7 +81,7 @@ None
       tasks:
         # only this uses "become" for privilege escalation
         - import_role:
-            name: golemfactory.ansible-role-ya-provider
+            name: golemfactory.ya_provider
             tasks_from: system_setup
 
     - hosts: all
@@ -99,7 +99,7 @@ None
           initial: 0.0
         ya_provider_account: "0xYourEthereumAddress"
       roles:
-         - golemfactory.ansible-role-ya-provider
+         - golemfactory.ya_provider
 
 
 ## License
