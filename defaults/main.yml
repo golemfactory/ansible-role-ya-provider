@@ -1,0 +1,44 @@
+ya_provider_yagna_package_prefix: golem-provider-linux
+ya_provider_yagna_version: v0.7.3
+ya_provider_yagna_url: "https://github.com/golemfactory/yagna/releases/download/{{ ya_provider_yagna_version }}/{{ ya_provider_yagna_package_prefix }}-{{ ya_provider_yagna_version }}.tar.gz"
+ya_provider_wasi_version: v0.2.2
+ya_provider_wasi_url: "https://github.com/golemfactory/ya-runtime-wasi/releases/download/{{ ya_provider_wasi_version }}/ya-runtime-wasi-linux-{{ ya_provider_wasi_version }}.tar.gz"
+ya_provider_vm_version: v0.2.8
+ya_provider_vm_url: "https://github.com/golemfactory/ya-runtime-vm/releases/download/{{ ya_provider_vm_version }}/ya-runtime-vm-linux-{{ ya_provider_vm_version }}.tar.gz"
+
+ya_provider_use_promtail: false
+ya_provider_promtail_version: v2.1.0
+ya_provider_promtail_url: "https://github.com/grafana/loki/releases/download/{{ ya_provider_promtail_version }}/promtail-linux-amd64.zip"
+ya_provider_loki_url: "http://ip_or_hostname_where_loki_runns:3100/loki/api/v1/push"
+
+ya_provider_rust_log: info
+
+# yagna config
+# these urls defaults are different than yagna's defaults, to avoid conflict
+ya_provider_gsb_url: tcp://127.0.0.2:7464
+ya_provider_yagna_api_url: http://127.0.0.2:7465
+
+# ya-provider config
+ya_provider_name: "{{ ansible_user_id }}@{{ ansible_hostname }}-{{ ya_provider_subnet }}"
+ya_provider_subnet: testnet
+# if not defined, then ya-provider picks defaults itself
+#ya_provider_hardware:
+#  cpu_threads: 2
+#  mem_gib: 7
+#  storage_gib: 100
+ya_provider_presets_active:
+  - wasmtime
+  - vm
+ya_provider_presets_usage_coeffs:
+  cpu: 0.0001
+  duration: 0.00005
+  initial: 0.0
+# quotes around "0x..." are important, because otherwise ansible converts it into decimal number
+#ya_provider_account: "0x..."
+
+# golemsp config
+ya_provider_payment_network: rinkeby
+
+
+# stop.yml
+ya_provider_stop_purge: false

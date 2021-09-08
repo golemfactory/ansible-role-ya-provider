@@ -1,0 +1,24 @@
+- setup:
+
+- name: Stop ya-provider
+  systemd:
+    scope: user
+    name: "{{ ya_provider_unit_name }}"
+    enabled: no
+    state: stopped
+  ignore_errors: yes  # go on if unit doesn't exist
+
+- name: Delete subnet dir
+  file:
+    path: "{{ ya_provider_subnet_dir }}"
+    state: absent
+
+- name: Delete systemd unit
+  file:
+    dest: "{{ ansible_user_dir }}/.config/systemd/user/{{ ya_provider_unit_name }}.service"
+    state: absent
+
+- name: Reload systemd
+  systemd:
+    scope: user
+    daemon_reload: yes

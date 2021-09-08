@@ -1,0 +1,7 @@
+- setup:
+
+- name: Get ID
+  command:
+    cmd: "{{ ya_provider_yagna_dir }}/yagna --json id list"
+    chdir: "{{ ya_provider_subnet_dir }}"
+  changed_when: False

@@ -1,0 +1,8 @@
+- name: Restart provider
+  systemd:
+    scope: user
+    daemon_reload: yes
+    name: "{{ ya_provider_unit_name }}"
+    enabled: yes
+    state: restarted
+  when: (ya_provider_start | default({})) is not changed

@@ -1,0 +1,15 @@
+- setup:
+
+- name: Stop ya-provider
+  systemd:
+    scope: user
+    name: "{{ ya_provider_unit_name }}"
+    enabled: no
+    state: stopped
+
+- name: Purge datadir
+  when: ya_provider_stop_purge
+  file:
+    path: "{{ ya_provider_subnet_dir }}/{{ item[0] }}"
+    state: "{{ item[1] }}"
+  loop: "{{ ['yagna_datadir', 'provider_datadir'] | product(['absent', 'directory']) | list }}"

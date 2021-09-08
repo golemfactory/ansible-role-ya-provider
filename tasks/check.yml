@@ -1,0 +1,3 @@
+- name: Check provider
+  command: "systemctl --user status {{ ya_provider_unit_name }}"
+  changed_when: False

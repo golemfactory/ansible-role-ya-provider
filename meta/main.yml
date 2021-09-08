@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Adam Mizerski
+  description: Yagna provider node with wasi and vm runtimes
+  company: Golem Factory GmbH
+
+  issue_tracker_url: https://github.com/golemfactory/ansible-role-ya-provider/issues
+  license: GPL-3.0-or-later
+  min_ansible_version: 2.9
+
+  galaxy_tags: []
+
+dependencies: []

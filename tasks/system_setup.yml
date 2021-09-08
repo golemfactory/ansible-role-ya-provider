@@ -1,0 +1,52 @@
+- name: Setup kvm group and access to /dev/kvm
+  when:
+    ansible_facts['distribution'] == "Ubuntu"
+    and (ansible_facts['distribution_major_version'] | int) <= 18
+  become: yes
+  apt:
+    update_cache: yes
+    name: qemu-system-common
+
+- name: Set limits
+  become: yes
+  lineinfile:
+    path: "/etc/systemd/{{ item }}.conf"
+    line: DefaultLimitNOFILE=1048576
+    regexp: DefaultLimitNOFILE=
+    insertafter: '^\[Manager\]$'
+  loop:
+    - system
+    - user
+
+- name: Setup user group
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    groups: kvm
+    append: yes
+  register: ya_provider_system_group
+
+# based on https://www.jeffgeerling.com/blog/2018/reboot-and-wait-reboot-complete-ansible-playbook
+- name: Restart user to apply group change
+  when: ya_provider_system_group is changed
+  async: 1
+  poll: 0
+  shell: "sleep 5 && loginctl terminate-user {{ ansible_user }}"
+
+- name: Wait for the restart to complete
+  when: ya_provider_system_group is changed
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 300
+
+- name: Enable linger
+  # on newer systems user can enable linger himself
+  when:
+    ansible_facts['distribution'] == "Ubuntu"
+    and ansible_facts['distribution_major_version'] == "16"
+  become: yes
+  command:
+    cmd: "loginctl enable-linger {{ ansible_user }}"
+    creates: "/var/lib/systemd/linger/{{ ansible_user }}"

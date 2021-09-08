@@ -1,0 +1,14 @@
+[Unit]
+Description=ya-provider for {{ ya_provider_subnet }}
+After=network.target
+
+[Service]
+Type=notify
+WorkingDirectory={{ ya_provider_subnet_dir }}
+ExecStart={{ ya_provider_subnet_dir }}/run.sh
+TimeoutStartSec=10m
+LimitNOFILE=10000
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

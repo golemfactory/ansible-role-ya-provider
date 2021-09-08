@@ -1,0 +1,169 @@
+- name: Create releases directory
+  file:
+    path: "{{ ya_provider_releases_dir }}"
+    state: directory
+
+- name: Unpack yagna
+  unarchive:
+    src: "{{ ya_provider_yagna_url }}"
+    dest: "{{ ya_provider_releases_dir }}/"
+    remote_src: "{{ ya_provider_yagna_url is search('://') | ternary('yes','no') }}"
+    creates: "{{ ya_provider_yagna_dir }}"
+  notify: Restart provider
+
+- name: Unpack runtime wasi
+  unarchive:
+    src: "{{ ya_provider_wasi_url }}"
+    dest: "{{ ya_provider_releases_dir }}/"
+    remote_src: "{{ ya_provider_wasi_url is search('://') | ternary('yes','no') }}"
+    creates: "{{ ya_provider_releases_dir }}/ya-runtime-wasi-linux-{{ ya_provider_wasi_version }}"
+  when: "'wasmtime' in ya_provider_presets_active"
+  notify: Restart provider
+
+- name: Unpack runtime vm
+  unarchive:
+    src: "{{ ya_provider_vm_url }}"
+    dest: "{{ ya_provider_releases_dir }}/"
+    remote_src: "{{ ya_provider_vm_url is search('://') | ternary('yes','no') }}"
+    creates: "{{ ya_provider_releases_dir }}/ya-runtime-vm-linux-{{ ya_provider_vm_version }}"
+  when: "'vm' in ya_provider_presets_active"
+  notify: Restart provider
+
+- name: Unpack promtail
+  when: ya_provider_use_promtail
+  block:
+
+    - name: Create promtail directory
+      file:
+        path: "{{ ya_provider_promtail_dir }}"
+        state: directory
+
+    - name: Download promtail
+      unarchive:
+        src: "{{ ya_provider_promtail_url }}"
+        dest: "{{ ya_provider_promtail_dir }}/"
+        remote_src: "{{ ya_provider_promtail_url is search('://') | ternary('yes','no') }}"
+        creates: "{{ ya_provider_promtail_bin }}"
+      notify: Restart provider
+
+- name: Create directories
+  # this will also create ya_provider_subnet_dir itself
+  file:
+    path: "{{ ya_provider_subnet_dir }}/{{ item }}"
+    state: directory
+  loop:
+    - yagna_datadir
+    - provider_datadir
+    - plugins
+  notify: Restart provider
+
+- name: Symlink exe-unit supervisor
+  file:
+    src: "{{ ya_provider_yagna_dir }}/plugins/exe-unit"
+    path: "{{ ya_provider_subnet_dir }}/plugins/exe-unit"
+    state: link
+  notify: Restart provider
+
+- name: Symlink runtime wasi
+  file:
+    src: "{{ ya_provider_releases_dir }}/ya-runtime-wasi-linux-{{ ya_provider_wasi_version }}/ya-runtime-{{ item }}"
+    path: "{{ ya_provider_subnet_dir }}/plugins/ya-runtime-{{ item }}"
+    state: link
+  loop:
+    - wasi
+    - wasi.json
+  when: "'wasmtime' in ya_provider_presets_active"
+  notify: Restart provider
+
+- name: Remove runtime wasi
+  file:
+    path: "{{ ya_provider_subnet_dir }}/plugins/ya-runtime-{{ item }}"
+    state: absent
+  loop:
+    - wasi
+    - wasi.json
+  when: "'wasmtime' not in ya_provider_presets_active"
+  notify: Restart provider
+
+- name: Symlink runtime vm
+  file:
+    src: "{{ ya_provider_releases_dir }}/ya-runtime-vm-linux-{{ ya_provider_vm_version }}/ya-runtime-{{ item }}"
+    path: "{{ ya_provider_subnet_dir }}/plugins/ya-runtime-{{ item }}"
+    state: link
+  loop:
+    - vm
+    - vm.json
+  when: "'vm' in ya_provider_presets_active"
+  notify: Restart provider
+
+- name: Remove runtime vm
+  file:
+    path: "{{ ya_provider_subnet_dir }}/plugins/ya-runtime-{{ item }}"
+    state: absent
+  loop:
+    - vm
+    - vm.json
+  when: "'vm' not in ya_provider_presets_active"
+  notify: Restart provider
+
+- name: Create .env
+  template:
+    src: .env.j2
+    dest: "{{ ya_provider_subnet_dir }}/.env"
+  notify: Restart provider
+
+- name: Create hardware.json
+  template:
+    src: hardware.json.j2
+    dest: "{{ ya_provider_subnet_dir }}/provider_datadir/hardware.json"
+  when: ya_provider_hardware is defined
+  # No need to notify. ya-provider automatically reconfigures itself if file is changed.
+
+# TODO: Created file should have the same formatting as created by ya-provider.
+# Otherwise ya-provider is formatting it itself, so running this again always
+# reports that file has changed.
+- name: Create presets.json
+  template:
+    src: presets.json.j2
+    dest: "{{ ya_provider_subnet_dir }}/provider_datadir/presets.json"
+  # No need to notify. ya-provider automatically reconfigures itself if file is changed.
+
+- name: Create run.sh
+  template:
+    src: run.sh.j2
+    dest: "{{ ya_provider_subnet_dir }}/run.sh"
+    mode: "755"
+  notify: Restart provider
+
+- name: Create promtail_config.yaml
+  when: ya_provider_use_promtail
+  template:
+    src: promtail_config.yaml.j2
+    dest: "{{ ya_provider_subnet_dir }}/promtail_config.yaml"
+  notify: Restart provider
+
+- name: Create systemd unit directory
+  file:
+    # TODO: support XDG_CONFIG_HOME if someone actually uses it
+    path: "{{ ansible_user_dir }}/.config/systemd/user"
+    state: directory
+
+- name: Create systemd unit
+  template:
+    src: ya-provider.service.j2
+    dest: "{{ ansible_user_dir }}/.config/systemd/user/{{ ya_provider_unit_name }}.service"
+  notify: Restart provider
+
+- name: Enable loginctl linger
+  command:
+    cmd: "loginctl enable-linger"
+    creates: "/var/lib/systemd/linger/{{ ansible_user_id }}"
+
+- name: Start ya-provider
+  systemd:
+    scope: user
+    daemon_reload: yes
+    name: "{{ ya_provider_unit_name }}"
+    enabled: yes
+    state: started
+  register: ya_provider_start

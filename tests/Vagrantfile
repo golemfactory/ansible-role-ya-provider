@@ -1,0 +1,14 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.nested = true
+    libvirt.cpu_mode = "host-model"
+  end
+  config.vm.define "testvm"
+  config.vm.box = "generic/ubuntu2004"
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "test.yml"
+  end
+end

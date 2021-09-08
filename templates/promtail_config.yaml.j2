@@ -1,0 +1,12 @@
+server:
+  disable: true
+
+clients:
+  - url: {{ ya_provider_loki_url }}
+
+scrape_configs:
+- job_name: golem
+  static_configs:
+  - labels:
+      hostname: "{{ ya_provider_name }}"
+      job: "{{ ya_provider_subnet }}"

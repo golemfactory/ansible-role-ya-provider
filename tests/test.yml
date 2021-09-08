@@ -1,0 +1,9 @@
+- hosts: all
+  tasks:
+    - import_role:
+        name: ansible-role-ya-provider
+        tasks_from: system_setup
+
+- hosts: all
+  roles:
+    - ansible-role-ya-provider
