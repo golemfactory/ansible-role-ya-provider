@@ -4,11 +4,4 @@ export PATH="{{ ya_provider_yagna_dir }}:$PATH"
 
 ulimit -n 10000
 
-golemsp run 2>&1 \
-{% if ya_provider_use_promtail %}
-    | {{ ya_provider_promtail_bin }} -config.file={{ ya_provider_subnet_dir }}/promtail_config.yaml -stdin \
-{% endif %}
-    &
-
-# report golemsp daemon as a main pid
-exec systemd-notify --ready --pid="$(jobs -p)"
+exec golemsp run

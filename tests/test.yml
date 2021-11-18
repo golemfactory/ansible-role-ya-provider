@@ -5,5 +5,7 @@
         tasks_from: system_setup
 
 - hosts: all
+  # vars:
+  #   ya_provider_use_promtail: yes
   roles:
     - ya_provider

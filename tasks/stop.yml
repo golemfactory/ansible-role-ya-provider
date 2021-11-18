@@ -7,6 +7,8 @@
     enabled: no
     state: stopped
 
+# don't stop promtail
+
 - name: Purge datadir
   when: ya_provider_stop_purge
   file:

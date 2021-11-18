@@ -1,0 +1,13 @@
+[Unit]
+Description=promtail for {{ ya_provider_subnet }}
+After=network.target
+
+[Service]
+Type=simple
+ExecStart={{ ya_provider_promtail_bin }} -config.file={{ ya_provider_subnet_dir }}/promtail_config.yaml
+TimeoutStartSec=10m
+LimitNOFILE=10000
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

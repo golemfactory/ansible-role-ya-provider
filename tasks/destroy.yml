@@ -8,6 +8,14 @@
     state: stopped
   ignore_errors: yes  # go on if unit doesn't exist
 
+- name: Stop promtail
+  systemd:
+    scope: user
+    name: "{{ ya_provider_unit_name }}-promtail"
+    enabled: no
+    state: stopped
+  ignore_errors: yes  # go on if unit doesn't exist
+
 - name: Delete subnet dir
   file:
     path: "{{ ya_provider_subnet_dir }}"
@@ -16,6 +24,11 @@
 - name: Delete systemd unit
   file:
     dest: "{{ ansible_user_dir }}/.config/systemd/user/{{ ya_provider_unit_name }}.service"
+    state: absent
+
+- name: Delete promtail systemd unit
+  file:
+    dest: "{{ ansible_user_dir }}/.config/systemd/user/{{ ya_provider_unit_name }}-promtail.service"
     state: absent
 
 - name: Reload systemd

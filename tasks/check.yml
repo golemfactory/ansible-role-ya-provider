@@ -1,3 +1,8 @@
 - name: Check provider
   command: "systemctl --user status {{ ya_provider_unit_name }}"
   changed_when: False
+
+- name: Check promtail
+  when: ya_provider_use_promtail
+  command: "systemctl --user status {{ ya_provider_unit_name }}-promtail"
+  changed_when: False

@@ -140,13 +140,20 @@
   template:
     src: promtail_config.yaml.j2
     dest: "{{ ya_provider_subnet_dir }}/promtail_config.yaml"
-  notify: Restart provider
+  notify: Restart promtail
 
 - name: Create systemd unit directory
   file:
     # TODO: support XDG_CONFIG_HOME if someone actually uses it
     path: "{{ ansible_user_dir }}/.config/systemd/user"
     state: directory
+
+- name: Create promtail systemd unit
+  when: ya_provider_use_promtail
+  template:
+    src: ya-provider-promtail.service.j2
+    dest: "{{ ansible_user_dir }}/.config/systemd/user/{{ ya_provider_unit_name }}-promtail.service"
+  notify: Restart promtail
 
 - name: Create systemd unit
   template:
@@ -158,6 +165,16 @@
   command:
     cmd: "loginctl enable-linger"
     creates: "/var/lib/systemd/linger/{{ ansible_user_id }}"
+
+- name: Start promtail
+  when: ya_provider_use_promtail
+  systemd:
+    scope: user
+    daemon_reload: yes
+    name: "{{ ya_provider_unit_name }}-promtail"
+    enabled: yes
+    state: started
+  register: ya_provider_start_promtail
 
 - name: Start ya-provider
   systemd:
