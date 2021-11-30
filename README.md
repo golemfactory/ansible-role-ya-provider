@@ -50,7 +50,7 @@ Yagna config:
 Ya-provider config:
 - `ya_provider_name`: Your fancy name for others in the network to see.
 - `ya_provider_subnet`: Subnet. See [provider tutorial](https://handbook.golem.network/provider-tutorials/provider-tutorial).
-- `ya_provider_payment_network`: Payment network: `rinkeby` or `mainnet`.
+- `ya_provider_payment_network_group`: Payment network group: `testnet` or `mainnet`.
 - `ya_provider_hardware`: How much resources should yagna use. If not specified, yagna uses internal logic to pick some sane defaults. Format: `{cpu_threads: int, mem_gib: int, storage_gib: int}`.
 - `ya_provider_presets_active`: List of runtimes to install.
 - `ya_provider_presets_usage_coeffs`: Pricing. See [provider docs # Offer formulation](https://github.com/golemfactory/yagna/tree/master/agent/provider#offer-formulation). Format: `{cpu: float [GLM/sec], duration: float [GLM/sec], initial: float [GLM]}`.
