@@ -7,7 +7,7 @@ Type=simple
 ExecStart={{ ya_provider_promtail_bin }} -config.file={{ ya_provider_subnet_dir }}/promtail_config.yaml
 TimeoutStartSec=10m
 LimitNOFILE=10000
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=default.target
