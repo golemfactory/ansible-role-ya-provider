@@ -8,7 +8,7 @@ WorkingDirectory={{ ya_provider_subnet_dir }}
 ExecStart={{ ya_provider_subnet_dir }}/run.sh
 TimeoutStartSec=10m
 LimitNOFILE=10000
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=default.target
