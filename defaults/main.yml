@@ -1,9 +1,9 @@
 ya_provider_yagna_package_prefix: golem-provider-linux
-ya_provider_yagna_version: v0.8.0
+ya_provider_yagna_version: v0.9.0
 ya_provider_yagna_url: "https://github.com/golemfactory/yagna/releases/download/{{ ya_provider_yagna_version }}/{{ ya_provider_yagna_package_prefix }}-{{ ya_provider_yagna_version }}.tar.gz"
 ya_provider_wasi_version: v0.2.2
 ya_provider_wasi_url: "https://github.com/golemfactory/ya-runtime-wasi/releases/download/{{ ya_provider_wasi_version }}/ya-runtime-wasi-linux-{{ ya_provider_wasi_version }}.tar.gz"
-ya_provider_vm_version: v0.2.9
+ya_provider_vm_version: v0.2.10
 ya_provider_vm_url: "https://github.com/golemfactory/ya-runtime-vm/releases/download/{{ ya_provider_vm_version }}/ya-runtime-vm-linux-{{ ya_provider_vm_version }}.tar.gz"
 
 ya_provider_use_promtail: false
@@ -37,7 +37,7 @@ ya_provider_presets_usage_coeffs:
 #ya_provider_account: "0x..."
 
 # golemsp config
-ya_provider_payment_network: rinkeby
+ya_provider_payment_network_group: testnet
 
 
 # stop.yml
