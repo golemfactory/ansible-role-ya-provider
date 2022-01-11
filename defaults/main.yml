@@ -1,5 +1,5 @@
 ya_provider_yagna_package_prefix: golem-provider-linux
-ya_provider_yagna_version: v0.9.1
+ya_provider_yagna_version: v0.9.2
 ya_provider_yagna_url: "https://github.com/golemfactory/yagna/releases/download/{{ ya_provider_yagna_version }}/{{ ya_provider_yagna_package_prefix }}-{{ ya_provider_yagna_version }}.tar.gz"
 ya_provider_wasi_version: v0.2.2
 ya_provider_wasi_url: "https://github.com/golemfactory/ya-runtime-wasi/releases/download/{{ ya_provider_wasi_version }}/ya-runtime-wasi-linux-{{ ya_provider_wasi_version }}.tar.gz"
