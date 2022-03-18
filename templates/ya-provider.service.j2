@@ -5,6 +5,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory={{ ya_provider_subnet_dir }}
+Environment="XDG_RUNTIME_DIR={{ ya_provider_subnet_dir }}/runtime_dir"
 ExecStart={{ ya_provider_subnet_dir }}/run.sh
 TimeoutStartSec=10m
 LimitNOFILE=10000
