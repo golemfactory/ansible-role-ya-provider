@@ -1,17 +1,26 @@
 {
-  "active": {{ ya_provider_presets_active|to_nice_json }},
+  "ver": "V1",
+  "active": [
+{%- for item in ya_provider_presets_active +%}
+    "{{ item }}"{% if not loop.last %},{% else %}{% endif %}
+{% endfor +%}
+  ],
   "presets": [
-  {% for item in ya_provider_presets_active %}
+{% for item in ya_provider_presets_active %}
     {
       "name": "{{ item }}",
       "exeunit-name": "{{ item }}",
       "pricing-model": "linear",
-      "usage-coeffs": {{ ya_provider_presets_usage_coeffs|to_json }}
-    {% if not loop.last %}
+      "initial-price": {{ ya_provider_presets_usage_coeffs.initial }},
+      "usage-coeffs": {
+        "golem.usage.duration_sec": {{ ya_provider_presets_usage_coeffs.duration }}
+        "golem.usage.cpu_sec": {{ ya_provider_presets_usage_coeffs.cpu }},
+      }
+{% if not loop.last %}
     },
-    {% else %}
+{% else %}
     }
-    {% endif %}
-  {% endfor %}
+{% endif %}
+{% endfor %}
   ]
 }
