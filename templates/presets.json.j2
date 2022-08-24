@@ -13,8 +13,8 @@
       "pricing-model": "linear",
       "initial-price": {{ ya_provider_presets_usage_coeffs.initial }},
       "usage-coeffs": {
-        "golem.usage.duration_sec": {{ ya_provider_presets_usage_coeffs.duration }}
-        "golem.usage.cpu_sec": {{ ya_provider_presets_usage_coeffs.cpu }},
+        "golem.usage.duration_sec": {{ ya_provider_presets_usage_coeffs.duration }},
+        "golem.usage.cpu_sec": {{ ya_provider_presets_usage_coeffs.cpu }}
       }
 {% if not loop.last %}
     },
