@@ -88,7 +88,7 @@ None
       vars:
         ya_provider_name: Your fancy name
         ya_provider_subnet: public-beta
-        ya_provider_payment_network: mainnet
+        ya_provider_payment_network_group: mainnet
         ya_provider_hardware:
           cpu_threads: 4
           mem_gib: 2
