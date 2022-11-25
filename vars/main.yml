@@ -2,6 +2,7 @@ ya_provider_subnet_dir: "{{ ansible_user_dir }}/{{ ya_provider_subnet }}"
 ya_provider_releases_dir: "{{ ansible_user_dir }}/releases"
 ya_provider_unit_name: "ya-provider-{{ ya_provider_subnet }}"
 ya_provider_yagna_dir: "{{ ya_provider_releases_dir }}/{{ ya_provider_yagna_package_prefix }}-{{ ya_provider_yagna_version }}"
+ya_provider_resources_dir: "{{ ya_provider_releases_dir }}/installer_resources-{{ ya_provider_installer_resources_version }}"
 
 ya_provider_promtail_dir: "{{ ya_provider_releases_dir }}/promtail_{{ ya_provider_promtail_version }}"
 ya_provider_promtail_bin: "{{ ya_provider_promtail_dir }}/promtail-linux-amd64"
