@@ -46,11 +46,6 @@
         creates: "{{ ya_provider_promtail_bin }}"
       notify: Restart provider
 
-- name: Remove installer resources
-  file:
-    path: "{{ ya_provider_subnet_dir }}/installer_resources"
-    state: absent
-
 - name: Create directories
   # this will also create ya_provider_subnet_dir itself
   file:
@@ -60,13 +55,13 @@
     - yagna_datadir
     - provider_datadir
     - plugins
-    - installer_resources
   notify: Restart provider
 
 - name: Extract installer resources
   unarchive:
     src: "{{ ya_provider_installer_resources_url }}"
-    dest: "{{ ya_provider_subnet_dir }}/installer_resources"
+    dest: "{{ ya_provider_resources_dir }}/"
+    creates: "{{ ya_provider_resources_dir }}/certs/GOLEM-CA.pem"
     remote_src: "yes"
 
 - name: Symlink exe-unit supervisor
@@ -174,8 +169,8 @@
   notify: Restart provider
 
 - name: Add installer resources
-  ansible.builtin.shell:
-    cmd: "{{ ya_provider_yagna_dir }}/golemsp manifest-bundle add {{ ya_provider_subnet_dir }}/installer_resources"
+  shell:
+    cmd: "{{ ya_provider_yagna_dir }}/golemsp manifest-bundle add {{ ya_provider_resources_dir }}"
     chdir: "{{ ya_provider_subnet_dir }}"
   when: ya_provider_add_installer_resources
 
