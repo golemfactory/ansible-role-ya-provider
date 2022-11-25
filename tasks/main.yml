@@ -57,6 +57,11 @@
     - plugins
   notify: Restart provider
 
+- name: Create installer resources dir
+  file:
+    path: "{{ya_provider_resources_dir}}"
+    state: directory
+
 - name: Extract installer resources
   unarchive:
     src: "{{ ya_provider_installer_resources_url }}"
