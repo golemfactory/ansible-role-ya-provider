@@ -66,7 +66,7 @@
   unarchive:
     src: "{{ ya_provider_installer_resources_url }}"
     dest: "{{ ya_provider_resources_dir }}/"
-    creates: "{{ ya_provider_resources_dir }}/certs/GOLEM-CA.pem"
+    creates: "{{ ya_provider_resources_dir }}/certs"
     remote_src: "yes"
 
 - name: Symlink exe-unit supervisor
