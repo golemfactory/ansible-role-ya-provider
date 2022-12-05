@@ -24,11 +24,8 @@ ya_provider_yagna_api_url: http://127.0.0.2:7465
 # ya-provider config
 ya_provider_name: "{{ ansible_user_id }}@{{ ansible_hostname }}-{{ ya_provider_subnet }}"
 ya_provider_subnet: testnet
-# if not defined, then ya-provider picks defaults itself
-#ya_provider_hardware:
-#  cpu_threads: 2
-#  mem_gib: 7
-#  storage_gib: 100
+# if not specified, then ya-provider picks defaults itself
+ya_provider_hardware: {}
 ya_provider_presets_active:
   - wasmtime
   - vm
@@ -36,8 +33,11 @@ ya_provider_presets_usage_coeffs:
   cpu: 0.0001
   duration: 0.00005
   initial: 0.0
+# If set, it must be an ethereum address like "0x...".
 # quotes around "0x..." are important, because otherwise ansible converts it into decimal number
-#ya_provider_account: "0x..."
+ya_provider_account: ""
+
+ya_provider_extra_env: ""
 
 # golemsp config
 ya_provider_payment_network_group: testnet

@@ -128,7 +128,7 @@
   template:
     src: hardware.json.j2
     dest: "{{ ya_provider_subnet_dir }}/provider_datadir/hardware.json"
-  when: ya_provider_hardware is defined
+  when: ya_provider_hardware
   # No need to notify. ya-provider automatically reconfigures itself if file is changed.
 
 # TODO: Created file should have the same formatting as created by ya-provider.
