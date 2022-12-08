@@ -1,13 +1,13 @@
 ya_provider_yagna_package_prefix: golem-provider-linux
-ya_provider_yagna_version: v0.10.1
+ya_provider_yagna_version: v0.12.0
 ya_provider_yagna_url: "https://github.com/golemfactory/yagna/releases/download/{{ ya_provider_yagna_version }}/{{ ya_provider_yagna_package_prefix }}-{{ ya_provider_yagna_version }}.tar.gz"
 ya_provider_wasi_version: v0.2.2
 ya_provider_wasi_url: "https://github.com/golemfactory/ya-runtime-wasi/releases/download/{{ ya_provider_wasi_version }}/ya-runtime-wasi-linux-{{ ya_provider_wasi_version }}.tar.gz"
-ya_provider_vm_version: v0.2.11
+ya_provider_vm_version: v0.3.0
 ya_provider_vm_url: "https://github.com/golemfactory/ya-runtime-vm/releases/download/{{ ya_provider_vm_version }}/ya-runtime-vm-linux-{{ ya_provider_vm_version }}.tar.gz"
 ya_provider_installer_resources_version: 0.1.7
 ya_provider_installer_resources_url: "https://github.com/golemfactory/ya-installer-resources/releases/download/v{{ ya_provider_installer_resources_version }}/resources.tar.gz"
-ya_provider_add_installer_resources: false
+ya_provider_add_installer_resources: yes
 
 ya_provider_use_promtail: false
 ya_provider_promtail_version: v2.1.0
