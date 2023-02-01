@@ -15,3 +15,8 @@
     enabled: yes
     state: restarted
   when: (ya_provider_start | default({})) is not changed
+
+- name: Reload systemd
+  systemd:
+    scope: user
+    daemon_reload: yes

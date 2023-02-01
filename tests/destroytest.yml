@@ -1,0 +1,6 @@
+- hosts: all
+  tasks:
+    - import_role:
+        name: ya_provider
+        tasks_from: destroy
+
