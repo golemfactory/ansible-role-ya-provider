@@ -173,6 +173,15 @@
     dest: "{{ ansible_user_dir }}/.config/systemd/user/{{ ya_provider_unit_name }}.service"
   notify: Restart provider
 
+- name: Create clean systemd unit
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ ansible_user_dir }}/.config/systemd/user/{{ ya_provider_unit_name }}-{{ item }}"
+  loop: 
+    - clean.service
+    - clean.timer
+  notify: Reload systemd
+    
 - name: Add installer resources
   shell:
     cmd: "{{ ya_provider_yagna_dir }}/golemsp manifest-bundle add {{ ya_provider_resources_dir }}"
@@ -202,3 +211,12 @@
     enabled: yes
     state: started
   register: ya_provider_start
+
+- name: Start cleaner
+  systemd:
+    scope: user
+    daemon_reload: yes
+    name: "{{ ya_provider_unit_name }}-clean.timer"
+    enabled: yes
+    state: started
+

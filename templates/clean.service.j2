@@ -1,0 +1,9 @@
+[Unit]
+Description=cleaner for {{ ya_provider_subnet }}
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory={{ ya_provider_subnet_dir }}
+ExecStart="{{ ya_provider_yagna_dir }}/ya-provider" clean 5d
+
