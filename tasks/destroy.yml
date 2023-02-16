@@ -36,7 +36,7 @@
   loop:
     - .service
     - -promtail.service
-    - -clean.timer  
+    - -clean.timer
     - -clean.service
 
 - name: Reload systemd

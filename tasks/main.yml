@@ -177,11 +177,11 @@
   template:
     src: "{{ item }}.j2"
     dest: "{{ ansible_user_dir }}/.config/systemd/user/{{ ya_provider_unit_name }}-{{ item }}"
-  loop: 
+  loop:
     - clean.service
     - clean.timer
   notify: Reload systemd
-    
+
 - name: Add installer resources
   shell:
     cmd: "{{ ya_provider_yagna_dir }}/golemsp manifest-bundle add {{ ya_provider_resources_dir }}"
