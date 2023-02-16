@@ -10,7 +10,7 @@ ya_provider_installer_resources_url: "https://github.com/golemfactory/ya-install
 ya_provider_add_installer_resources: yes
 
 ya_provider_use_promtail: false
-ya_provider_promtail_version: v2.1.0
+ya_provider_promtail_version: v2.7.3
 ya_provider_promtail_url: "https://github.com/grafana/loki/releases/download/{{ ya_provider_promtail_version }}/promtail-linux-amd64.zip"
 ya_provider_loki_url: "http://ip_or_hostname_where_loki_runns:3100/loki/api/v1/push"
 
