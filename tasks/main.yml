@@ -219,4 +219,3 @@
     name: "{{ ya_provider_unit_name }}-clean.timer"
     enabled: yes
     state: started
-

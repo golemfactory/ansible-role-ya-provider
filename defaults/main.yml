@@ -42,6 +42,5 @@ ya_provider_extra_env: ""
 # golemsp config
 ya_provider_payment_network_group: testnet
 
-
 # stop.yml
 ya_provider_stop_purge: false
