@@ -18,7 +18,7 @@ ya_provider_rust_log: info
 
 # yagna config
 # these urls defaults are different than yagna's defaults, to avoid conflict
-ya_provider_gsb_url: tcp://127.0.0.2:7464
+ya_provider_gsb_url: "unix://{{ ya_provider_subnet_dir }}/gsb.sock"
 ya_provider_yagna_api_url: http://127.0.0.2:7465
 
 # ya-provider config
