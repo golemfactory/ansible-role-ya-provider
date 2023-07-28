@@ -35,6 +35,9 @@ Releases:
 - `ya_provider_wasi_url`: Url to wasi runtime release tarball.
 - `ya_provider_vm_version`: Tag of vm runtime release.
 - `ya_provider_vm_url`: Url to wasi runtime tarball.
+- `ya_provider_installer_resources_version`: Tag of ya-installer-resources release.
+- `ya_provider_installer_resources_url`: Url to ya-installer-resources tarball.
+- `ya_provider_add_installer_resources`: Enables installing ya-installer-resources.
 
 Promtail:
 - `ya_provider_use_promtail`: Enables usage of promtail [boolean].
@@ -46,6 +49,8 @@ Yagna config:
 - `ya_provider_rust_log`: Log level.
 - `ya_provider_gsb_url`: Address, where yagna should listen for GSB connections.
 - `ya_provider_yagna_api_url`: Address, where yagna should listen for API connections.
+- `ya_provider_net_bind_ip`: IP Address, where yagna should listen for P2P connections.
+- `ya_provider_net_bind_port`: Port number, where yagna should listen for P2P connections.
 
 Ya-provider config:
 - `ya_provider_name`: Your fancy name for others in the network to see.
@@ -66,6 +71,8 @@ Stopping (`tasks/stop.yml`):
 - `ya_provider_releases_dir`: Directory for unpacking release binaries.
 - `ya_provider_unit_name`: Systemd unit name for yagna service.
 - `ya_provider_yagna_dir`: Path to unpacked yagna binaries.
+- `ya_provider_resources_dir`: Directory for unpacking installer resources.
+- `ya_provider_net_bind_url`: Address, where yagna should listen for P2P connections.
 - `ya_provider_promtail_dir`: Directory with unpacked promtail binary.
 - `ya_provider_promtail_bin`: Path to promtail binary.
 
