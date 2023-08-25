@@ -1,28 +1,17 @@
 - setup:
 
-- name: Stop ya-provider
+- name: Stop service
   systemd:
     scope: user
-    name: "{{ ya_provider_unit_name }}"
+    name: "{{ ya_provider_unit_name }}{{ item }}"
     enabled: no
     state: stopped
+  loop:
+    - .service
+    - -promtail.service
+    - -clean.timer
+    - -clean.service
   ignore_errors: yes  # go on if unit doesn't exist
-
-- name: Stop promtail
-  systemd:
-    scope: user
-    name: "{{ ya_provider_unit_name }}-promtail"
-    enabled: no
-    state: stopped
-  ignore_errors: yes  # go on if unit doesn't exist
-
-- name: Stop cleaner
-  systemd:
-    scope: user
-    name: "{{ ya_provider_unit_name }}-clean.timer"
-    enabled: no
-    state: stopped
-  ignore_errors: yes # go on if unit doesn't exist
 
 - name: Delete subnet dir
   file:
