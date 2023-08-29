@@ -2,6 +2,7 @@
 
 export PATH="{{ ya_provider_yagna_dir }}:$PATH"
 
-ulimit -n 10000
+# raise the soft limit to the value of hard limit
+ulimit -S -n "$(ulimit -H -n)"
 
 exec golemsp run
