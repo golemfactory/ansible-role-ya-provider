@@ -14,14 +14,15 @@ ya_provider_promtail_version: v2.8.3
 ya_provider_promtail_url: "https://github.com/grafana/loki/releases/download/{{ ya_provider_promtail_version }}/promtail-linux-amd64.zip"
 ya_provider_loki_url: "http://ip_or_hostname_where_loki_runns:3100/loki/api/v1/push"
 
-ya_provider_rust_log: info
+ya_provider_dir: "{{ ansible_user_dir }}/{{ ya_provider_subnet }}"
 
 # yagna config
 # these urls defaults are different than yagna's defaults, to avoid conflict
-ya_provider_gsb_url: "unix://{{ ya_provider_subnet_dir }}/gsb.sock"
+ya_provider_gsb_url: "unix://{{ ya_provider_dir }}/gsb.sock"
 ya_provider_yagna_api_url: http://127.0.0.2:7465
 ya_provider_net_bind_ip: 0.0.0.0
 ya_provider_net_bind_port: 11500
+ya_provider_rust_log: info
 
 # ya-provider config
 ya_provider_name: "{{ ansible_user_id }}@{{ ansible_hostname }}-{{ ya_provider_subnet }}"

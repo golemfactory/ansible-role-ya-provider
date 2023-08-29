@@ -12,6 +12,6 @@
 - name: Purge datadir
   when: ya_provider_stop_purge
   file:
-    path: "{{ ya_provider_subnet_dir }}/{{ item[0] }}"
+    path: "{{ ya_provider_dir }}/{{ item[0] }}"
     state: "{{ item[1] }}"
   loop: "{{ ['yagna_datadir', 'provider_datadir'] | product(['absent', 'directory']) | list }}"

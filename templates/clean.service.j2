@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory={{ ya_provider_subnet_dir }}
+WorkingDirectory={{ ya_provider_dir }}
 ExecStart="{{ ya_provider_yagna_dir }}/ya-provider" clean 5d
 {% if ya_provider_add_installer_resources %}
 ExecStartPost=-"{{ ya_provider_yagna_dir }}/golemsp" manifest-bundle add "{{ ya_provider_resources_dir }}"

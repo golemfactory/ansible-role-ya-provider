@@ -15,7 +15,7 @@
 
 - name: Delete subnet dir
   file:
-    path: "{{ ya_provider_subnet_dir }}"
+    path: "{{ ya_provider_dir }}"
     state: absent
 
 - name: Delete systemd unit

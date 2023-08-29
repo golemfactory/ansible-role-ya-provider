@@ -2,7 +2,7 @@ server:
   disable: true
 
 positions:
-  filename: {{ ya_provider_subnet_dir }}/promtail_positions.yaml
+  filename: {{ ya_provider_dir }}/promtail_positions.yaml
 
 clients:
   - url: {{ ya_provider_loki_url }}
@@ -14,14 +14,14 @@ scrape_configs:
       hostname: "{{ ya_provider_name }}"
       job: "{{ ya_provider_subnet }}"
       service: yagna
-      __path__: {{ ya_provider_subnet_dir }}/yagna_datadir/yagna_rCURRENT.log
+      __path__: {{ ya_provider_dir }}/yagna_datadir/yagna_rCURRENT.log
   - labels:
       hostname: "{{ ya_provider_name }}"
       job: "{{ ya_provider_subnet }}"
       service: ya-provider
-      __path__: {{ ya_provider_subnet_dir }}/provider_datadir/ya-provider_rCURRENT.log
+      __path__: {{ ya_provider_dir }}/provider_datadir/ya-provider_rCURRENT.log
   - labels:
       hostname: "{{ ya_provider_name }}"
       job: "{{ ya_provider_subnet }}"
       service: exe-unit
-      __path__: {{ ya_provider_subnet_dir }}/provider_datadir/exe-unit/work/*/*/logs/exe-unit_*.log
+      __path__: {{ ya_provider_dir }}/provider_datadir/exe-unit/work/*/*/logs/exe-unit_*.log

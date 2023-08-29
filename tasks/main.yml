@@ -47,9 +47,9 @@
       notify: Restart provider
 
 - name: Create directories
-  # this will also create ya_provider_subnet_dir itself
+  # this will also create ya_provider_dir itself
   file:
-    path: "{{ ya_provider_subnet_dir }}/{{ item }}"
+    path: "{{ ya_provider_dir }}/{{ item }}"
     state: directory
   loop:
     - yagna_datadir
@@ -72,14 +72,14 @@
 - name: Symlink exe-unit supervisor
   file:
     src: "{{ ya_provider_yagna_dir }}/plugins/exe-unit"
-    path: "{{ ya_provider_subnet_dir }}/plugins/exe-unit"
+    path: "{{ ya_provider_dir }}/plugins/exe-unit"
     state: link
   notify: Restart provider
 
 - name: Symlink runtime wasi
   file:
     src: "{{ ya_provider_releases_dir }}/ya-runtime-wasi-linux-{{ ya_provider_wasi_version }}/ya-runtime-{{ item }}"
-    path: "{{ ya_provider_subnet_dir }}/plugins/ya-runtime-{{ item }}"
+    path: "{{ ya_provider_dir }}/plugins/ya-runtime-{{ item }}"
     state: link
   loop:
     - wasi
@@ -89,7 +89,7 @@
 
 - name: Remove runtime wasi
   file:
-    path: "{{ ya_provider_subnet_dir }}/plugins/ya-runtime-{{ item }}"
+    path: "{{ ya_provider_dir }}/plugins/ya-runtime-{{ item }}"
     state: absent
   loop:
     - wasi
@@ -100,7 +100,7 @@
 - name: Symlink runtime vm
   file:
     src: "{{ ya_provider_releases_dir }}/ya-runtime-vm-linux-{{ ya_provider_vm_version }}/ya-runtime-{{ item }}"
-    path: "{{ ya_provider_subnet_dir }}/plugins/ya-runtime-{{ item }}"
+    path: "{{ ya_provider_dir }}/plugins/ya-runtime-{{ item }}"
     state: link
   loop:
     - vm
@@ -110,7 +110,7 @@
 
 - name: Remove runtime vm
   file:
-    path: "{{ ya_provider_subnet_dir }}/plugins/ya-runtime-{{ item }}"
+    path: "{{ ya_provider_dir }}/plugins/ya-runtime-{{ item }}"
     state: absent
   loop:
     - vm
@@ -120,14 +120,14 @@
 
 - name: Create .env
   template:
-    src: .env.j2
-    dest: "{{ ya_provider_subnet_dir }}/.env"
+    src: dot_env.j2
+    dest: "{{ ya_provider_dir }}/.env"
   notify: Restart provider
 
 - name: Create hardware.json
   template:
     src: hardware.json.j2
-    dest: "{{ ya_provider_subnet_dir }}/provider_datadir/hardware.json"
+    dest: "{{ ya_provider_dir }}/provider_datadir/hardware.json"
   when: ya_provider_hardware
   # No need to notify. ya-provider automatically reconfigures itself if file is changed.
 
@@ -137,13 +137,13 @@
 - name: Create presets.json
   template:
     src: presets.json.j2
-    dest: "{{ ya_provider_subnet_dir }}/provider_datadir/presets.json"
+    dest: "{{ ya_provider_dir }}/provider_datadir/presets.json"
   # No need to notify. ya-provider automatically reconfigures itself if file is changed.
 
 - name: Create run.sh
   template:
     src: run.sh.j2
-    dest: "{{ ya_provider_subnet_dir }}/run.sh"
+    dest: "{{ ya_provider_dir }}/run.sh"
     mode: "755"
   notify: Restart provider
 
@@ -151,7 +151,7 @@
   when: ya_provider_use_promtail
   template:
     src: promtail_config.yaml.j2
-    dest: "{{ ya_provider_subnet_dir }}/promtail_config.yaml"
+    dest: "{{ ya_provider_dir }}/promtail_config.yaml"
   notify: Restart promtail
 
 - name: Create systemd unit directory
@@ -185,7 +185,7 @@
 - name: Add installer resources
   shell:
     cmd: "{{ ya_provider_yagna_dir }}/golemsp manifest-bundle add {{ ya_provider_resources_dir }}"
-    chdir: "{{ ya_provider_subnet_dir }}"
+    chdir: "{{ ya_provider_dir }}"
   when: ya_provider_add_installer_resources
 
 - name: Enable loginctl linger

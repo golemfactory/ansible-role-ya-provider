@@ -45,12 +45,15 @@ Promtail:
 - `ya_provider_promtail_url`: Url to promtail release zip.
 - `ya_provider_loki_url`: Url where promtail should send logs. If promtail is enabled, it must be set to something.
 
+Common:
+- `ya_provider_dir`: Directory, where all config and runtime files are kept.
+
 Yagna config:
-- `ya_provider_rust_log`: Log level.
 - `ya_provider_gsb_url`: Address, where yagna should listen for GSB connections.
 - `ya_provider_yagna_api_url`: Address, where yagna should listen for API connections.
 - `ya_provider_net_bind_ip`: IP Address, where yagna should listen for P2P connections.
 - `ya_provider_net_bind_port`: Port number, where yagna should listen for P2P connections.
+- `ya_provider_rust_log`: Log level.
 
 Ya-provider config:
 - `ya_provider_name`: Your fancy name for others in the network to see.
@@ -67,7 +70,6 @@ Stopping (`tasks/stop.yml`):
 
 ### vars
 
-- `ya_provider_subnet_dir`: Directory, where all config and runtime files are kept.
 - `ya_provider_releases_dir`: Directory for unpacking release binaries.
 - `ya_provider_unit_name`: Systemd unit name for yagna service.
 - `ya_provider_yagna_dir`: Path to unpacked yagna binaries.
