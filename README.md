@@ -18,7 +18,7 @@ It's possible to use older systemd version, but user lingering must be manually 
 
 ### KVM
 
-VM runtime requires access to `/dev/kvm` and working acceleration. Required steps to configure acces are in `tasks/system_setup.yml`.
+VM runtime requires access to `/dev/kvm` and working acceleration. Required steps to configure access are in `tasks/system_setup.yml`.
 
 Note: It's possible to disable vm runtime, by removing it from `ya_provider_presets_active`.
 
