@@ -2,7 +2,13 @@
 
 export PATH="{{ ya_provider_yagna_dir }}:$PATH"
 
+# Auto remove directory after Agreement finish
+# https://github.com/golemfactory/yagna/pull/2754
+export AUTO_CLEANUP_ACTIVITY=true
+export AUTO_CLEANUP_AGREEMENT=true
+
 # raise the soft limit to the value of hard limit
 ulimit -S -n "$(ulimit -H -n)"
 
+ya-provider clean 2h
 exec golemsp run
