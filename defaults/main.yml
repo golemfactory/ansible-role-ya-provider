@@ -5,7 +5,7 @@ ya_provider_wasi_version: v0.2.2
 ya_provider_wasi_url: "https://github.com/golemfactory/ya-runtime-wasi/releases/download/{{ ya_provider_wasi_version }}/ya-runtime-wasi-linux-{{ ya_provider_wasi_version }}.tar.gz"
 ya_provider_vm_version: v0.3.0
 ya_provider_vm_url: "https://github.com/golemfactory/ya-runtime-vm/releases/download/{{ ya_provider_vm_version }}/ya-runtime-vm-linux-{{ ya_provider_vm_version }}.tar.gz"
-ya_provider_installer_resources_version: 0.1.18
+ya_provider_installer_resources_version: 0.1.19
 ya_provider_installer_resources_url: "https://github.com/golemfactory/ya-installer-resources/releases/download/v{{ ya_provider_installer_resources_version }}/resources.tar.gz"
 ya_provider_add_installer_resources: yes
 
